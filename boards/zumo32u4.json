@@ -1,0 +1,26 @@
+{
+    "build": {
+        "core": "arduino",
+        "f_cpu": "16000000L",
+        "hwids": [
+            [
+                "0x1ffb",
+                "0x2300"
+            ]
+        ],
+        "mcu": "atmega32u4",
+        "variant": "leonardo"
+    },
+    "frameworks": [
+        "arduino"
+    ],
+    "name": "Pololu A-Star/Zumo 32U4",
+    "upload": {
+        "disable_flushing": true,
+        "maximum_size": 28672,
+        "protocol": "avr109",
+        "speed": 57600,
+    },
+    "url": "https://www.pololu.com/category/170/zumo-32u4-robot",
+    "vendor": "Pololu"
+}
