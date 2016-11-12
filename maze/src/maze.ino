@@ -91,25 +91,6 @@ void turnSensorUpdate()
 	turnAngle += (int64_t)d * 14680064 / 17578125;
 }
 
-// Displays a bar graph of sensor readings on the LCD.
-// Returns after the user presses A.
-void showReadings()
-{
-	lcd.clear();
-
-	while(!buttonA.getSingleDebouncedPress())
-	{
-		lineSensors.readCalibrated(lineSensorValues);
-
-		lcd.gotoXY(0, 0);
-		for (uint8_t i = 0; i < NUM_SENSORS; i++)
-		{
-			uint8_t barHeight = map(lineSensorValues[i], 0, 1000, 0, 8);
-			printBar(barHeight);
-		}
-	}
-}
-
 
 int16_t leftSpeed;
 int16_t rightSpeed;
