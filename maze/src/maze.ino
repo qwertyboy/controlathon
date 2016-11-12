@@ -141,28 +141,28 @@ void loop()
 		}
 	}
 
-	if (frontLeft < 1 && frontRight < 1) {
+	/*if (frontLeft < 1 && frontRight < 1) {
 		motors.setSpeeds(-100, -100);
 		delay(400);
 		motors.setSpeeds(200, -200);
 		delay(300);
-	}
+	}*/
 
 	static char buffer[80];
 	sprintf(buffer, "%d %d %d %d\n", left, frontLeft, frontRight, right);
 	Serial.print(buffer);
 
 	// determines if the robot turns left or right.
-	leftSpeed = 150;
-	rightSpeed = 150;
+	leftSpeed = 200 - (right * right * 5);
+	rightSpeed = 200 - (left * left * 5);
 
-	if (left < 4 && frontLeft <= 3 && frontRight <= 3) {
+	/*if (left < 4) {
 		rightSpeed += 50;
 		Serial.print("right");
-	} else if (right < 4 && frontLeft <= 3 && frontRight <= 3) {
+	} else if (right < 4) {
 		leftSpeed += 50;
 		Serial.print("left");
-	}
+	}*/
 
 	motors.setSpeeds(leftSpeed, rightSpeed);
 }
@@ -170,7 +170,7 @@ void loop()
 // turning functions
 int16_t turnSpeed = 300;
 const int32_t turnAngle45 = 0x20000000;
-int16_t turnDelay = 200;
+int16_t turnDelay = 170;
 void turnLeft(){
 	motors.setSpeeds(turnSpeed, -turnSpeed);
 	delay(turnDelay);
