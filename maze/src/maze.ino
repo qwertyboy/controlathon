@@ -114,11 +114,6 @@ void setup()
 	lcd.print(F("Go!"));
 	buzzer.play("L16 cdegreg4");
 	while(buzzer.isPlaying());
-
-	delay(1000);
-	turnLeft();
-	delay(1000);
-	turnRight();
 }
 
 void loop()
@@ -136,7 +131,7 @@ void loop()
 	int frontLeft = proxSensors.countsFrontWithLeftLeds();
 	int frontRight = proxSensors.countsFrontWithRightLeds();
 
-	if (frontLeft > 5 && frontRight > 5) {
+	if (frontLeft >= 5 && frontRight >= 5) {
 		if (left > right) {
 			Serial.print("left");
 			turnLeft();
@@ -146,20 +141,35 @@ void loop()
 		}
 	}
 
+	if (frontLeft < 1 && frontRight < 1) {
+		motors.setSpeeds(-100, -100);
+		delay(400);
+		motors.setSpeeds(200, -200);
+		delay(300);
+	}
+
 	static char buffer[80];
 	sprintf(buffer, "%d %d %d %d\n", left, frontLeft, frontRight, right);
 	Serial.print(buffer);
 
 	// determines if the robot turns left or right.
-	leftSpeed = 100;
-	rightSpeed = 100;
+	leftSpeed = 150;
+	rightSpeed = 150;
+
+	if (left < 4 && frontLeft <= 3 && frontRight <= 3) {
+		rightSpeed += 50;
+		Serial.print("right");
+	} else if (right < 4 && frontLeft <= 3 && frontRight <= 3) {
+		leftSpeed += 50;
+		Serial.print("left");
+	}
 
 	motors.setSpeeds(leftSpeed, rightSpeed);
 }
 
-int16_t turnSpeed = 200;
+int16_t turnSpeed = 300;
 const int32_t turnAngle45 = 0x20000000;
-int16_t turnDelay = 325;
+int16_t turnDelay = 200;
 void turnLeft(){
 	motors.setSpeeds(turnSpeed, -turnSpeed);
 	delay(turnDelay);
