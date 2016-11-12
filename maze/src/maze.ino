@@ -16,6 +16,9 @@ bool proxLeftActive;
 bool proxFrontActive;
 bool proxRightActive;
 
+int16_t leftSpeed;
+int16_t rightSpeed;
+
 void setup()
 {
 	proxSensors.initThreeSensors();
@@ -68,21 +71,25 @@ void loop()
 	sprintf(buffer, "%d %d %d %d\n", left, right, frontLeft, frontRight);
 	Serial.print(buffer);
 
+	// determines if the robot turns left or right.
+	leftSpeed = 200;
+	rightSpeed = 200;
+
 	motors.setSpeeds(leftSpeed, rightSpeed);
 }
 
 void turnLeft(){
 	// determines if the robot turns left or right.
-	int16_t leftSpeed = constrain(leftSpeed, 0, (int16_t)maxSpeed);
-	int16_t rightSpeed = constrain(rightSpeed, 0, (int16_t)maxSpeed);
+	leftSpeed = 300;
+	rightSpeed = 100;
 
 	motors.setSpeeds(leftSpeed, rightSpeed);
 }
 
 void turnRight(){
 	// determines if the robot turns left or right.
-	int16_t leftSpeed = constrain(leftSpeed, 0, (int16_t)maxSpeed);
-	int16_t rightSpeed = constrain(rightSpeed, 0, (int16_t)maxSpeed);
+	leftSpeed = 300;
+	rightSpeed = 100;
 
 	motors.setSpeeds(leftSpeed, rightSpeed);
 }
