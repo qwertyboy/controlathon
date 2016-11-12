@@ -24,6 +24,11 @@
 # Template #1: General project. Test it using existing `platformio.ini`.
 #
 
+env:
+    - TEST_SUITE=hockey
+    - TEST_SUITE=driving
+    - TEST_SUITE=maze
+
 language: python
 python:
     - "2.7"
@@ -38,9 +43,6 @@ install:
     - cp -r boards ~/.platformio
 
 script:
-    - cd hockey
-    - platformio run
-    - cd ../driving
-    - platformio run
-    - cd ../maze
-    - platformio run
+    - platformio run:hockey
+    - platformio run:driving
+    - platformio run:maze
