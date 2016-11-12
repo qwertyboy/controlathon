@@ -25,9 +25,9 @@
 #
 
 env:
-    - TEST_SUITE=hockey
-    - TEST_SUITE=driving
-    - TEST_SUITE=maze
+    - TEST_DIR=hockey
+    - TEST_DIR=driving
+    - TEST_DIR=maze
 
 language: python
 python:
@@ -43,6 +43,4 @@ install:
     - cp -r boards ~/.platformio
 
 script:
-    - platformio run $hockey
-    - platformio run $driving
-    - platformio run $maze
+    - cd $TEST_DIR && platformio run
