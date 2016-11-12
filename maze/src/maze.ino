@@ -34,10 +34,6 @@ void setup()
 	lcd.print(F("to calib"));
 	buttonA.waitForButton();
 
-	calibrateSensors();
-
-	showReadings();
-
 	// Play music and wait for it to finish before we start driving.
 	lcd.clear();
 	lcd.print(F("Go!"));
