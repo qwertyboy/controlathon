@@ -17,77 +17,9 @@ bool proxLeftActive;
 bool proxFrontActive;
 bool proxRightActive;
 
-<<<<<<< HEAD
 int16_t leftSpeed;
 int16_t rightSpeed;
 
-=======
-<<<<<<< HEAD
-int16_t gyroOffset;
-uint32_t gyroLastUpdate;
-void gyroSetup(){
-	gyro.init();
-
-	// 800 Hz output data rate,
-	// low-pass filter cutoff 100 Hz
-	gyro.writeReg(L3G::CTRL1, 0b11111111);
-
-	// 2000 dps full scale
-	gyro.writeReg(L3G::CTRL4, 0b00100000);
-
-	// High-pass filter disabled
-	gyro.writeReg(L3G::CTRL5, 0b00000000);
-
-	// Turn on the yellow LED in case the LCD is not available.
-	ledYellow(1);
-
-	// Delay to give the user time to remove their finger.
-	delay(500);
-
-	// Calibrate the gyro.
-	int32_t total = 0;
-	for (uint16_t i = 0; i < 1024; i++)
-	{
-		// Wait for new data to be available, then read it.
-		while(!gyro.readReg(L3G::STATUS_REG) & 0x08);
-		gyro.read();
-
-		// Add the Z axis reading to the total.
-		total += gyro.g.z;
-	}
-	ledYellow(0);
-	gyroOffset = total / 1024;
-}
-
-// This should be called to set the starting point for measuring
-// a turn.  After calling this, turnAngle will be 0.
-void turnSensorReset(){
-	gyroLastUpdate = micros();
-	turnAngle = 0;
-}
-
-// Displays a bar graph of sensor readings on the LCD.
-// Returns after the user presses A.
-void showReadings()
-{
-	lcd.clear();
-
-	while(!buttonA.getSingleDebouncedPress())
-	{
-		lineSensors.readCalibrated(lineSensorValues);
-
-		lcd.gotoXY(0, 0);
-		for (uint8_t i = 0; i < NUM_SENSORS; i++)
-		{
-			uint8_t barHeight = map(lineSensorValues[i], 0, 1000, 0, 8);
-			printBar(barHeight);
-		}
-	}
-}
-
-=======
->>>>>>> origin/master
->>>>>>> origin/master
 void setup()
 {
 	proxSensors.initThreeSensors();
