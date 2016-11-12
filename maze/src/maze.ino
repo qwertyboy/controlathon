@@ -157,6 +157,7 @@ void loop()
 	motors.setSpeeds(leftSpeed, rightSpeed);
 }
 
+// turning functions
 int16_t turnSpeed = 200;
 const int32_t turnAngle45 = 0x20000000;
 int16_t turnDelay = 325;
