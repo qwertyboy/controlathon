@@ -22,7 +22,10 @@
         "maximum_ram_size": 2560,
         "maximum_size": 28672,
         "protocol": "avr109",
-        "speed": 57600
+        "speed": 57600,
+        "use_1200bps_touch": true,
+        "wait_for_upload_port": true,
+        "require_upload_port": true
     },
     "url": "https://www.pololu.com/category/170/zumo-32u4-robot",
     "vendor": "Pololu"
