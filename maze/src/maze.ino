@@ -56,37 +56,41 @@ void loop()
 	int frontLeft = proxSensors.countsFrontWithLeftLeds();
 	int frontRight = proxSensors.countsFrontWithRightLeds();
 
-	if (frontLeft > 4 && frontRight > 4) {
-		if (left > 4) {
+	if (frontLeft > 5 && frontRight > 5) {
+		if (left > right) {
+			Serial.print("left");
 			turnLeft();
-		} else if (right > 4) {
+		} else {
+			Serial.print("right");
 			turnRight();
 		}
 	}
 
 	static char buffer[80];
-	sprintf(buffer, "%d %d %d %d\n", left, right, frontLeft, frontRight);
+	sprintf(buffer, "%d %d %d %d\n", left, frontLeft, frontRight, right);
 	Serial.print(buffer);
 
 	// determines if the robot turns left or right.
-	leftSpeed = 200;
-	rightSpeed = 200;
+	leftSpeed = 100;
+	rightSpeed = 100;
 
 	motors.setSpeeds(leftSpeed, rightSpeed);
 }
 
 void turnLeft(){
 	// determines if the robot turns left or right.
-	leftSpeed = 300;
-	rightSpeed = 100;
+	leftSpeed = 100;
+	rightSpeed = 300;
 
 	motors.setSpeeds(leftSpeed, rightSpeed);
+	delay(250);
 }
 
 void turnRight(){
 	// determines if the robot turns left or right.
-	leftSpeed = 300;
-	rightSpeed = 100;
+	leftSpeed = 100;
+	rightSpeed = 300;
 
 	motors.setSpeeds(leftSpeed, rightSpeed);
+	delay(250);
 }
