@@ -35,7 +35,7 @@ cache:
 install:
     - pip install -U platformio
     - platformio lib install 484
-    - cp -r boards ~/.platformio
+    - cp -r ../boards ~/.platformio
 
 script:
     - platformio run
