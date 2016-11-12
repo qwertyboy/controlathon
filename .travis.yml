@@ -34,7 +34,7 @@ cache:
 
 install:
     - pip install -U platformio
-    platformio lib install "Zumo32U4"
+    platformio lib install 484
 
 script:
     - platformio run
