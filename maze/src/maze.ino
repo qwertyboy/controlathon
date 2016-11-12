@@ -111,6 +111,9 @@ void showReadings()
 }
 
 
+int16_t leftSpeed;
+int16_t rightSpeed;
+
 void setup()
 {
 	proxSensors.initThreeSensors();
@@ -124,10 +127,6 @@ void setup()
 	lcd.gotoXY(0, 1);
 	lcd.print(F("to calib"));
 	buttonA.waitForButton();
-
-	calibrateSensors();
-
-	showReadings();
 
 	// Play music and wait for it to finish before we start driving.
 	lcd.clear();
@@ -163,6 +162,10 @@ void loop()
 	sprintf(buffer, "%d %d %d %d\n", left, right, frontLeft, frontRight);
 	Serial.print(buffer);
 
+	// determines if the robot turns left or right.
+	leftSpeed = 200;
+	rightSpeed = 200;
+
 	motors.setSpeeds(leftSpeed, rightSpeed);
 }
 
@@ -175,6 +178,10 @@ void turnLeft(){
 		turnSensorUpdate();
 	}
 	motors.setSpeeds(0, 0);
+	leftSpeed = 300;
+	rightSpeed = 100;
+
+	motors.setSpeeds(leftSpeed, rightSpeed);
 }
 
 void turnRight(){
@@ -184,4 +191,8 @@ void turnRight(){
 		turnSensorUpdate();
 	}
 	motors.setSpeeds(0, 0);
+	leftSpeed = 300;
+	rightSpeed = 100;
+
+	motors.setSpeeds(leftSpeed, rightSpeed);
 }
