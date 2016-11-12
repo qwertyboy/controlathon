@@ -38,4 +38,7 @@ install:
     - cp -r ../boards ~/.platformio
 
 script:
+    - cd hockey
+    - platformio run
+    - cd ../challenge2
     - platformio run
