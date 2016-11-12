@@ -40,5 +40,7 @@ install:
 script:
     - cd hockey
     - platformio run
-    - cd ../challenge2
+    - cd ../driving
+    - platformio run
+    - cd ../maze
     - platformio run
