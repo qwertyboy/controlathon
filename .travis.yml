@@ -32,6 +32,9 @@ cache:
     directories:
         - "~/.platformio"
 
+env:
+    - PLATFORMIO_CI_SRC=boards/
+
 install:
     - pip install -U platformio
     - platformio lib install 484
