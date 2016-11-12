@@ -51,11 +51,14 @@ the path it previously learned. */
 #include <Zumo32U4.h>
 #include "GridMovement.h"
 
+#define PROX_THRESHOLD 2
+
 Zumo32U4LCD lcd;
 Zumo32U4Buzzer buzzer;
 Zumo32U4ButtonA buttonA;
 Zumo32U4Motors motors;
 Zumo32U4LineSensors lineSensors;
+Zumo32U4ProximitySensors proxSensors;
 L3G gyro;
 
 // The path variable will store the path that the robot has
@@ -81,6 +84,7 @@ void setup()
   buzzer.playFromProgramSpace(PSTR("!>g32>>c32"));
 
   gridMovementSetup();
+  proxSensors.initThreeSensors();
 
   // mazeSolve() explores every segment of the maze until it
   // finds the optimal path.
@@ -139,11 +143,16 @@ void mazeSolve()
     // Navigate current line segment until we enter an intersection.
     followSegment();
 
-    // Drive stright forward to get to the center of the
-    // intersection and check for exits to the left, right, and
-    // straight ahead.
+    while(1){
+    proxSensors.read();
+    int8_t leftSensor = proxSensors.countsLeftWithLeftLeds();
+    int8_t rightSensor = proxSensors.countsRightWithRightLeds();
+    delay(100);
+    char buffer1[32];
+    sprintf(buffer1, "%d\t%d\n", leftSensor, rightSensor);
+    Serial.print(buffer1);
+    }
     bool foundLeft, foundStraight, foundRight;
-    driveToIntersectionCenter(&foundLeft, &foundStraight, &foundRight);
 
     if(aboveDarkSpot())
     {

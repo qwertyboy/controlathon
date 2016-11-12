@@ -43,7 +43,7 @@ const uint16_t sensorThreshold = 200;
 const uint16_t sensorThresholdDark = 600;
 
 // The number of line sensors we are using.
-const uint8_t numSensors = 5;
+const uint8_t numSensors = 3;
 
 // For angles measured by the gyro, our convention is that a
 // value of (1 << 29) represents 45 degrees.  This means that a

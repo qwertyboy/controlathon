@@ -58,7 +58,7 @@ bool aboveLineDark(uint8_t sensorIndex)
 // Make sure to call readSensors() before calling this.
 bool aboveDarkSpot()
 {
-  return aboveLineDark(1) && aboveLineDark(2) && aboveLineDark(3);
+  return aboveLineDark(0) && aboveLineDark(1) && aboveLineDark(2);
 }
 
 // Calibrates the line sensors by turning left and right, then
@@ -150,7 +150,7 @@ void turn(char dir)
     {
       turnSensorUpdate();
     }
-    sensorIndex = 1;
+    sensorIndex = 0;
     break;
 
   case 'L':
@@ -160,7 +160,7 @@ void turn(char dir)
     {
       turnSensorUpdate();
     }
-    sensorIndex = 1;
+    sensorIndex = 0;
     break;
 
   case 'R':
@@ -170,7 +170,7 @@ void turn(char dir)
     {
       turnSensorUpdate();
     }
-    sensorIndex = 3;
+    sensorIndex = 2;
     break;
 
   default:
@@ -229,14 +229,14 @@ void followSegment()
     // after a turn, and if one of the far sensors is over the
     // line then it could cause a false intersection detection.
 
-    if(!aboveLine(0) && !aboveLine(1) && !aboveLine(2) && !aboveLine(3) && !aboveLine(4))
+    if(!aboveLine(0) && !aboveLine(1) && !aboveLine(2))
     {
       // There is no line visible ahead, and we didn't see any
       // intersection.  Must be a dead end.
       break;
     }
 
-    if(aboveLine(0) || aboveLine(4))
+    if(aboveLine(0) || aboveLine(2))
     {
       // Found an intersection or a dark spot.
       break;
@@ -277,7 +277,7 @@ void driveToIntersectionCenter(bool * foundLeft, bool * foundStraight, bool * fo
     {
       *foundLeft = 1;
     }
-    if(aboveLine(4))
+    if(aboveLine(2))
     {
       *foundRight = 1;
     }
@@ -286,7 +286,7 @@ void driveToIntersectionCenter(bool * foundLeft, bool * foundStraight, bool * fo
   readSensors();
 
   // Check for a straight exit.
-  if(aboveLine(1) || aboveLine(2) || aboveLine(3))
+  if(aboveLine(0) || aboveLine(1) || aboveLine(2))
   {
     *foundStraight = 1;
   }
@@ -295,7 +295,7 @@ void driveToIntersectionCenter(bool * foundLeft, bool * foundStraight, bool * fo
 void gridMovementSetup()
 {
   // Configure the pins used for the line sensors.
-  lineSensors.initFiveSensors();
+  lineSensors.initThreeSensors();
 
   // Set up custom characters on the LCD so we can show a bar
   // graph of the sensor readings after calibration.
