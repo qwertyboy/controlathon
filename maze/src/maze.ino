@@ -114,6 +114,11 @@ void setup()
 	lcd.print(F("Go!"));
 	buzzer.play("L16 cdegreg4");
 	while(buzzer.isPlaying());
+
+	delay(1000);
+	turnLeft();
+	delay(1000);
+	turnRight();
 }
 
 void loop()
@@ -154,20 +159,15 @@ void loop()
 
 int16_t turnSpeed = 200;
 const int32_t turnAngle45 = 0x20000000;
+int16_t turnDelay = 325;
 void turnLeft(){
-	// determines if the robot turns left or right.
-	leftSpeed = 100;
-	rightSpeed = 300;
-
-	motors.setSpeeds(leftSpeed, rightSpeed);
-	delay(250);
+	motors.setSpeeds(turnSpeed, -turnSpeed);
+	delay(turnDelay);
+	motors.setSpeeds(0, 0);
 }
 
 void turnRight(){
-	// determines if the robot turns left or right.
-	leftSpeed = 100;
-	rightSpeed = 300;
-
-	motors.setSpeeds(leftSpeed, rightSpeed);
-	delay(250);
+	motors.setSpeeds(-turnSpeed, turnSpeed);
+	delay(turnDelay);
+	motors.setSpeeds(0, 0);
 }
